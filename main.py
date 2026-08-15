@@ -110,10 +110,9 @@ st.sidebar.caption("Zero-Knowledge Governance Workbench")
 st.sidebar.markdown(
     """
     <div class="architect-card">
-        <small><b>Lead System Architect & Chief Engineer</b></small><br>
+        <small><b>System Architect </b></small><br>
         <b>Engr. Tasaddaque Hussain Arain</b><br>
-        <small>Reg. Professional Engineer (PEC COMP/7479)</small><br>
-        <a href="https://www.linkedin.com/in/tasaddaque" target="_blank">🔗 LinkedIn Profile</a>
+                <a href="https://www.linkedin.com/in/tasaddaque" target="_blank">🔗 LinkedIn Profile</a>
     </div>
 """,
     unsafe_allow_html=True,
