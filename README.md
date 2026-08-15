@@ -1,4 +1,11 @@
 # 🏥 Public Health Data Suite & UK Compliance Engine
+[![Public Health Data Suite CI](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml)
+# Public Health Data Suite & UK Compliance Engine
+
+[![Public Health Data Suite CI](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tasaddaque/Public_Health_Data_Suite/blob/main/LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 [![Live App](https://img.shields.io/badge/Streamlit_Cloud-Live_Demo-00D46A?style=for-the-badge&logo=streamlit)](https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python)](https://www.python.org/)
