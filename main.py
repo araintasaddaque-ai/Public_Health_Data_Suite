@@ -112,7 +112,7 @@ st.sidebar.markdown(
     <div class="architect-card">
         <small><b>System Architect </b></small><br>
         <b>Engr. Tasaddaque Hussain Arain</b><br>
-                <a href="https://www.linkedin.com/in/tasaddaque" target="_blank">🔗 LinkedIn Profile</a>
+                <a href="https://www.linkedin.com/in/tassaduqarain/" target="_blank">🔗 LinkedIn Profile</a>
     </div>
 """,
     unsafe_allow_html=True,
