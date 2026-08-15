@@ -355,13 +355,12 @@ elif active_tool == "🔗 PPRL Record Linkage":
         st.dataframe(pprl_df[["pprl_token"] + [c for c in df.columns if c not in link_cols]], use_container_width=True)
 
         report_pprl = f"# PPRL Linkage Certificate\n- Dataset: {st.session_state['active_dataset_name']}\n- Total Records Processed: {len(df)}\n- Unique Patient Clusters: {unique_tokens}\n- Potential Cross-Site Duplicates: {duplicate_count}\n- Encryption Standard: Salted HMAC SHA-256\n"
-        st.download_button(
+ st.download_button(
             "📥 Download PPRL Linkage Audit Log",
             report_pprl,
-            "pprl_linkage_report.txt",,
+            "pprl_linkage_report.txt",
             "text/plain",
         )
-
 
 # ==============================================================================
 # TOOL 4: QUALITY FIREWALL & TRIAGE
