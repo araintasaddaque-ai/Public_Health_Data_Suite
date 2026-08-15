@@ -174,7 +174,7 @@ with st.sidebar:
         <div style="font-size:15px; font-weight:700; margin-top:2px;">Engr. Tasaddaque Hussain Arain</div>
         <div style="font-size:12px; opacity:0.9; margin-top:2px;">Enterprise Solution Architect<br>PEC Registered Engineer</div>
         <div style="margin-top:10px;">
-            <a href="https://www.linkedin.com/in/tasaddaque" target="_blank" style="font-size:12px; font-weight:500;">
+            <a href="https://www.linkedin.com/in/tassaduqarain/" target="_blank" style="font-size:12px; font-weight:500;">
                 Connect on LinkedIn ➔
             </a>
         </div>
