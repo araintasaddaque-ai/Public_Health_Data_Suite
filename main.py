@@ -28,7 +28,7 @@ except ImportError as e:
     )
 
 
-# --- Helper Logic & Helpers ---
+# --- Helper Logic & Functions ---
 def validate_nhs_number(nhs_num: str) -> bool:
     nhs_str = str(nhs_num).strip().replace(" ", "").replace("-", "")
     if len(nhs_str) != 10 or not nhs_str.isdigit():
@@ -88,7 +88,6 @@ st.markdown(
     .main-header { font-size: 2.2rem; font-weight: 700; color: #1E3A8A; margin-bottom: 0px; }
     .sub-header { font-size: 1rem; color: #4B5563; margin-bottom: 20px; }
     .architect-card { background-color: #F0F9FF; border-left: 4px solid #0284C7; padding: 12px; border-radius: 6px; margin-bottom: 15px; }
-    .metric-box { background-color: #F8FAFC; padding: 15px; border-radius: 8px; border: 1px solid #E2E8F0; text-align: center; }
     </style>
 """,
     unsafe_allow_html=True,
@@ -260,7 +259,6 @@ if active_tool == "🛡️ Privacy Pre-Flight Scanner (k-Anonymity)":
             st.markdown("#### Equivalence Classes Breakdown")
             st.dataframe(counts, use_container_width=True)
 
-            # Standard Audit Report Download
             report = f"# k-Anonymity Audit Certificate\n- Dataset: {st.session_state['active_dataset_name']}\n- Minimum k: {min_k}\n- Target k: {target_k}\n- Compliance Status: {'PASSED' if min_k >= target_k else 'FAILED'}\n- Quasi-Identifiers: {', '.join(qis)}\n- Architect: Engr. Tasaddaque Hussain Arain\n"
             st.download_button(
                 "📥 Download Standard k-Anonymity Audit Report (.txt)",
@@ -293,7 +291,14 @@ elif active_tool == "🇬🇧 UK NHS Compliance Engine":
         invalid_count = len(audit_df) - valid_count
 
         st.metric("Valid NHS Numbers", f"{valid_count} / {len(audit_df)}")
-        st.bar_chart(pd.DataFrame({"Status": ["Valid", "Invalid"], "Count": [valid_count, invalid_count]}).set_index("Status"))
+        st.bar_chart(
+            pd.DataFrame(
+                {
+                    "Status": ["Valid", "Invalid"],
+                    "Count": [valid_count, invalid_count],
+                }
+            ).set_index("Status")
+        )
         st.dataframe(audit_df[[nhs_col, "nhs_valid"]], use_container_width=True)
 
     with col2:
@@ -350,17 +355,25 @@ elif active_tool == "🔗 PPRL Record Linkage":
         m2.metric("Cross-Site Duplicates Identified", duplicate_count)
 
         st.markdown("#### 📊 Token Uniqueness Infographic")
-        st.bar_chart(pd.DataFrame({"Metric": ["Unique Entities", "Duplicates"], "Count": [unique_tokens, duplicate_count]}).set_index("Metric"))
+        st.bar_chart(
+            pd.DataFrame(
+                {
+                    "Metric": ["Unique Entities", "Duplicates"],
+                    "Count": [unique_tokens, duplicate_count],
+                }
+            ).set_index("Metric")
+        )
 
         st.dataframe(pprl_df[["pprl_token"] + [c for c in df.columns if c not in link_cols]], use_container_width=True)
 
         report_pprl = f"# PPRL Linkage Certificate\n- Dataset: {st.session_state['active_dataset_name']}\n- Total Records Processed: {len(df)}\n- Unique Patient Clusters: {unique_tokens}\n- Potential Cross-Site Duplicates: {duplicate_count}\n- Encryption Standard: Salted HMAC SHA-256\n"
- st.download_button(
+        st.download_button(
             "📥 Download PPRL Linkage Audit Log",
             report_pprl,
             "pprl_linkage_report.txt",
             "text/plain",
         )
+
 
 # ==============================================================================
 # TOOL 4: QUALITY FIREWALL & TRIAGE
@@ -392,7 +405,14 @@ elif active_tool == "🚨 Quality Firewall & Triage":
     m2.metric("Quality Anomalies Flagged", len(anomaly_df))
 
     st.markdown("#### 📊 Quality Health Index Infographic")
-    st.bar_chart(pd.DataFrame({"Status": ["Clean Records", "Anomalous Records"], "Count": [len(df) - len(anomaly_df), len(anomaly_df)]}).set_index("Status"))
+    st.bar_chart(
+        pd.DataFrame(
+            {
+                "Status": ["Clean Records", "Anomalous Records"],
+                "Count": [len(df) - len(anomaly_df), len(anomaly_df)],
+            }
+        ).set_index("Status")
+    )
 
     if not anomaly_df.empty:
         st.error("Flagged Quality Violations")
@@ -435,7 +455,6 @@ elif active_tool == "🔄 DHIS2 / WHO Schema Transformer":
     st.markdown("#### Standardized DHIS2 Schema Table")
     st.dataframe(transformed_df, use_container_width=True)
 
-    report_schema = f"# DHIS2 Schema Alignment Report\n- Dataset: {st.session_state['active_dataset_name']}\n- Alignment Standard: DHIS2 Tracker / WHO Surveillance\n- Mapped Variables: {', '.join(transformed_df.columns)}\n"
     st.download_button(
         "📥 Download DHIS2 Standard CSV",
         transformed_df.to_csv(index=False),
@@ -474,12 +493,13 @@ elif active_tool == "🎲 Differential Privacy Generator":
 
             if num_cols:
                 st.markdown("#### 📊 Privacy Noise Curve Comparison (Original vs. DP Noise)")
-                chart_data = pd.DataFrame({"Original": df[num_cols[0]], "DP Synthetic": dp_result[num_cols[0]]})
+                chart_data = pd.DataFrame(
+                    {"Original": df[num_cols[0]], "DP Synthetic": dp_result[num_cols[0]]}
+                )
                 st.line_chart(chart_data)
 
             st.dataframe(dp_result, use_container_width=True)
 
-            report_dp = f"# Differential Privacy Certificate\n- Dataset: {st.session_state['active_dataset_name']}\n- Allocated Privacy Budget (ε): {epsilon}\n- Noise Mechanism: Laplace Distribution\n- Anonymized Variables: {', '.join(num_cols + cat_cols)}\n"
             st.download_button(
                 "📥 Download DP Synthetic Dataset (CSV)",
                 dp_result.to_csv(index=False),
@@ -573,7 +593,9 @@ elif active_tool == "🗺️ Spatial Privacy & Geospatial Engine":
         jittered_df = apply_spatial_jitter(df, lat_col, lon_col, radius_meters=radius)
 
         st.markdown("#### 📊 GPS Displacement Scatter Plot")
-        scatter_data = pd.DataFrame({"Original Lat": df[lat_col], "Jittered Lat": jittered_df[lat_col]})
+        scatter_data = pd.DataFrame(
+            {"Original Lat": df[lat_col], "Jittered Lat": jittered_df[lat_col]}
+        )
         st.scatter_chart(scatter_data)
 
         st.dataframe(jittered_df, use_container_width=True)
