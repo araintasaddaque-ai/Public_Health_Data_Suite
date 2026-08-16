@@ -28,9 +28,12 @@ except ImportError as e:
     )
 
 
-# --- Helper Logic & Functions ---
-def validate_nhs_number(nhs_num: str) -> bool:
-    nhs_str = str(nhs_num).strip().replace(" ", "").replace("-", "")
+# --- AUD-02 Fix: Float-Coerced NHS Validation ---
+def validate_nhs_number(nhs_num) -> bool:
+    if pd.isna(nhs_num):
+        return False
+    # Strip float decimals (.0) if cast by Pandas
+    nhs_str = str(nhs_num).split(".")[0].strip().replace(" ", "").replace("-", "")
     if len(nhs_str) != 10 or not nhs_str.isdigit():
         return False
     weights = [10, 9, 8, 7, 6, 5, 4, 3, 2]
@@ -43,16 +46,20 @@ def validate_nhs_number(nhs_num: str) -> bool:
     return check_digit == int(nhs_str[9])
 
 
-def mask_outward_postcode(postcode: str) -> str:
+# --- AUD-01 Fix: Regex/Length Outward Postcode Masking ---
+def mask_outward_postcode(postcode) -> str:
     if pd.isna(postcode):
         return ""
-    clean_pc = str(postcode).strip().upper()
-    parts = clean_pc.split()
-    return parts[0] if len(parts) > 0 else clean_pc
+    clean_pc = str(postcode).strip().upper().replace(" ", "")
+    # UK inward code is always last 3 characters
+    if len(clean_pc) > 3:
+        return clean_pc[:-3]
+    return clean_pc
 
 
+# --- AUD-03 Fix: Delimited HMAC PPRL Token Generation ---
 def hash_pprl_token(val: str, salt: str = "health_suite_secret_salt") -> str:
-    if pd.isna(val) or not str(val).strip():
+    if not val or not str(val).strip():
         return ""
     key = salt.encode("utf-8")
     msg = str(val).strip().lower().encode("utf-8")
@@ -61,14 +68,14 @@ def hash_pprl_token(val: str, salt: str = "health_suite_secret_salt") -> str:
 
 # --- Synthetic Demo Datasets ---
 SITE_A_CSV = """patient_id,first_name,last_name,date_of_birth,age,gender,sys_bp,dia_bp,uk_postcode,nhs_number,latitude,longitude,visit_date
-P001,John,Smith,1985-05-12,41,M,120,80,M14 4PX,9434765919,53.4808,-2.2426,2026-02-10
-P002,Sarah,Connor,1992-11-03,33,F,310,40,SW1A 1AA,6543219874,51.5074,-0.1278,2026-03-01
+P001,John,Smith,1985-05-12,41,M,120,80,M144PX,9434765919,53.4808,-2.2426,2026-02-10
+P002,Sarah,Connor,1992-11-03,33,F,310,40,SW1A1AA,6543219874,51.5074,-0.1278,2026-03-01
 P003,Mohammed,Khan,1970-01-15,56,M,135,85,LS1 4AP,1234567890,53.7997,-1.5492,2026-01-15
-P004,Elena,Rostova,2001-08-24,-5,F,118,78,EC1A 1BB,9434765919,51.5173,-0.1032,2029-12-31
+P004,Elena,Rostova,2001-08-24,-5,F,118,78,EC1A1BB,9434765919,51.5173,-0.1032,2029-12-31
 P005,David,Wilson,1948-03-30,145,M,140,90,BT7 1NN,6543219874,54.5973,-5.9301,2026-02-28"""
 
 SITE_B_CSV = """client_ref,full_name,dob,age_yrs,gender_code,blood_pressure_sys,blood_pressure_dia,zip_code,nhs_id,lat,lng,encounter_date
-CL-901,Jon Smith,1985-05-12,41,Male,122,82,M14 4PX,9434765919,53.4810,-2.2430,2026-04-12
+CL-901,Jon Smith,1985-05-12,41,Male,122,82,M144PX,9434765919,53.4810,-2.2430,2026-04-12
 CL-902,Sarah Conner,1992-11-03,33,Female,115,75,SW1A 1AA,6543219874,51.5070,-0.1275,2026-04-15
 CL-903,Mo Khan,1970-01-15,56,Male,135,85,LS1 4AP,99999,53.7990,-1.5490,2026-02-01
 CL-904,Alice Vane,1999-12-01,26,Female,110,70,EH1 1YZ,9434765919,55.9533,-3.1883,2026-03-10
@@ -106,11 +113,10 @@ df = st.session_state["df_active"]
 st.sidebar.title("🩺 Health Data Suite")
 st.sidebar.caption("Zero-Knowledge Governance Workbench")
 
-# Architect Attribution Block
 st.sidebar.markdown(
     """
     <div class="architect-card">
-        <small><b>System Architect </b></small><br>
+        <small><b>Lead System Architect & Chief Engineer</b></small><br>
         <b>Engr. Tasaddaque Hussain Arain</b><br>
                 <a href="https://www.linkedin.com/in/tassaduqarain/" target="_blank">🔗 LinkedIn Profile</a>
     </div>
@@ -223,29 +229,30 @@ if active_tool == "🛡️ Privacy Pre-Flight Scanner (k-Anonymity)":
             else None
         )
 
-        if (
-            gen_age
-            and age_col
-            and pd.api.types.is_numeric_dtype(scan_df[age_col])
-        ):
-            scan_df["age_group"] = pd.cut(
-                scan_df[age_col],
-                bins=[-1, 17, 29, 39, 49, 59, 69, 120],
-                labels=[
-                    "<18",
-                    "18-29",
-                    "30-39",
-                    "40-49",
-                    "50-59",
-                    "60-69",
-                    "70+",
-                ],
+        # AUD-04 Fix: Retain outlier ages in equivalence class calculations
+        if gen_age and age_col:
+            scan_df["age_group"] = (
+                pd.cut(
+                    pd.to_numeric(scan_df[age_col], errors="coerce"),
+                    bins=[-1, 17, 29, 39, 49, 59, 69, 150],
+                    labels=[
+                        "<18",
+                        "18-29",
+                        "30-39",
+                        "40-49",
+                        "50-59",
+                        "60-69",
+                        "70+",
+                    ],
+                )
+                .astype(str)
+                .fillna("INVALID_AGE")
             )
             if age_col in qis:
                 qis = ["age_group" if x == age_col else x for x in qis]
 
         if qis:
-            counts = scan_df.groupby(qis).size().reset_index(name="group_size")
+            counts = scan_df.groupby(qis, dropna=False).size().reset_index(name="group_size")
             min_k = int(counts["group_size"].min()) if not counts.empty else 0
 
             m1, m2 = st.columns(2)
@@ -340,9 +347,19 @@ elif active_tool == "🔗 PPRL Record Linkage":
     if st.button("Generate Linkage Tokens", type="primary"):
         pprl_df = df.copy()
 
+        # AUD-03 Fix: Explicit pipe delimiters to prevent hash collisions
         def compute_token(row):
-            combined = "".join([str(row[c]) for c in link_cols])
-            return hash_pprl_token(combined, salt=salt_key)
+            combined_tokens = []
+            for c in link_cols:
+                val = row[c]
+                clean_val = (
+                    ""
+                    if pd.isna(val)
+                    else str(val).strip().lower().split(".")[0]
+                )
+                combined_tokens.append(clean_val)
+            combined_str = "|".join(combined_tokens)
+            return hash_pprl_token(combined_str, salt=salt_key)
 
         pprl_df["pprl_token"] = pprl_df.apply(compute_token, axis=1)
 
@@ -384,10 +401,11 @@ elif active_tool == "🚨 Quality Firewall & Triage":
     firewall_df = df.copy()
     anomalies = []
 
+    # AUD-05 Fix: Numeric type coercion before inequality evaluation
     for idx, row in firewall_df.iterrows():
         reasons = []
-        age_val = row.get("age", row.get("age_yrs", None))
-        sys_val = row.get("sys_bp", row.get("blood_pressure_sys", None))
+        age_val = pd.to_numeric(row.get("age", row.get("age_yrs", None)), errors="coerce")
+        sys_val = pd.to_numeric(row.get("sys_bp", row.get("blood_pressure_sys", None)), errors="coerce")
 
         if pd.notna(age_val) and (age_val < 0 or age_val > 120):
             reasons.append(f"Invalid Age: {age_val}")
@@ -646,7 +664,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style="text-align: center; color: #6B7280; font-size: 0.9rem; margin-top: 20px;">
-        Public Health Data Suite & Governance Engine &bull; Architected & Engineered by <b>Engr. Tasaddaque Hussain Arain</b> (PEC COMP/7479)<br>
+        Public Health Data Suite & Governance Engine &bull; Architected & Engineered by <b>Engr. Tasaddaque Hussain Arain</b> <br>
         Zero-Knowledge Architecture &bull; Open-Source License &bull; Designed for Health Ministries, IRBs, and Epidemiological Researchers
     </div>
 """,

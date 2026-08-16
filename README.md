@@ -1,54 +1,68 @@
-# 🏥 Public Health Data Suite & UK Compliance Engine
-[![Public Health Data Suite CI](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml)
-# Public Health Data Suite & UK Compliance Engine
+# 🩺 Public Health Data Suite & Governance Workbench
 
-[![Public Health Data Suite CI](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/tasaddaque/Public_Health_Data_Suite/actions/workflows/pytest.yml)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tasaddaque/Public_Health_Data_Suite/blob/main/LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12345678.svg)](https://doi.org/10.5281/zenodo.12345678)
+[![Digital Public Good](https://img.shields.io/badge/DPG-Candidate%20(Under%20Review)-blue.svg)](https://digitalpublicgoods.net/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Framework](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B.svg)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[![Live App](https://img.shields.io/badge/Streamlit_Cloud-Live_Demo-00D46A?style=for-the-badge&logo=streamlit)](https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
-[![Design](https://img.shields.io/badge/UI-Google_Material_3-0B57D0?style=for-the-badge)](https://m3.material.io/)
-
-An open-source, privacy-preserving, enterprise-grade data management suite designed for public health researchers, epidemiologists, and clinical data managers. This platform resolves critical data bottlenecks—from offline probabilistic record de-duplication and automated data quality triage to international schema transformation and UK NHS governance compliance.
+An open-source, zero-knowledge health data governance and anonymization engine engineered for public health agencies, academic researchers, IRBs, and international NGOs. The platform transforms raw, non-standard clinical data into de-identified, privacy-compliant, and interoperable digital health assets without storing data on server disks.
 
 ---
 
-## 🌐 Live Application
-Access the production-ready, zero-install interactive deployment here:  
-👉 **[https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/](https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/)**
+## 🏛️ Lead Architect & Engineering Credit
+
+* **Lead System Architect & Chief Engineer:** Engr. Tasaddaque Hussain Arain
+* **Professional Credentials:** Registered Professional Engineer, 
+* **Professional Profile:** [LinkedIn Profile](https://www.linkedin.com/in/tassaduqarain/)
+
+> **Ethical Foundation:**
+> *"Do you presume that you are a small entity, when within you the greater universe is folded?"*
+> — **Imam Ali ibn Abi Talib (AS)**
+> 
+> *In health data governance, every individual data record reflects the sacred complexity of human life and well-being. This platform is built upon a strict duty of care, zero-knowledge privacy preservation, and public utility.*
 
 ---
 
-## 👤 Architect & Developer
+## 🌟 Capabilities & Feature Matrix
 
-**Engr. Tasaddaque Hussain Arain**  
-*Enterprise Solution Architect | PEC Registered Engineer*  
-* Specialized in Large-Scale Digital Public Goods, Health IT Infrastructure, and Privacy-Preserving Systems.  
-* 🔗 **LinkedIn:** [linkedin.com/in/tasaddaque](https://www.linkedin.com/in/tassaduqarain)
+| Category | Workbench Module | Technical Capabilities | Compliance & Interoperability |
+| :--- | :--- | :--- | :--- |
+| **Core Governance** | **Privacy Pre-Flight Scanner** | Audits $k$-anonymity across Quasi-Identifiers; automated age-binning generalization. | HIPAA / UK GDPR De-identification |
+| **Core Governance** | **UK NHS Engine** | Modulus 11 NHS Number checksum validation; outward postcode masking (`M144PX` $\rightarrow$ `M14`). | NHS DSPT / OpenSAFELY Standard |
+| **Core Governance** | **PPRL Record Linkage** | Multi-site deterministic record linkage using delimited HMAC SHA-256 tokens. | Cross-Trust De-duplication |
+| **Core Governance** | **Quality Firewall & Triage** | Automated triage of physiological BP anomalies, invalid age ranges, and type mismatches. | WHO Clinical Data Quality Standards |
+| **Core Governance** | **Schema Transformer** | One-click column alignment to DHIS2 Tracker and WHO disease surveillance schemas. | DHIS2 / WHO Surveillance |
+| **Advanced Research** | **Differential Privacy** | Synthetic data generation via configurable Laplace noise injection ($\epsilon$ budget). | Mathematical Privacy Guarantees |
+| **Advanced Research** | **Privacy Audit ($l, t$)** | Equivalence class scanning for $l$-diversity and $t$-closeness (Total Variation Distance). | Homogeneity & Disclosure Shield |
+| **Advanced Research** | **HL7 FHIR Interoperability Bridge** | Bi-directional JSON Bundle $\leftrightarrow$ DataFrame parser (`Patient` & LOINC `85354-9` Vitals). | HL7 FHIR Release 4 (R4) |
+| **Advanced Research** | **Spatial Privacy Engine** | Gaussian GPS displacement jittering and bounding-box spatial grid cell binning. | Geospatial De-identification |
+| **Advanced Research** | **Imputation Workbench** | Missingness rate profiling with K-Nearest Neighbors (KNN) and median/mode imputation. | Epidemiological Data Prep |
+
+---
+
+## 🔒 Security & Zero-Knowledge Architecture
+
+1. **Volatile RAM Execution:** All uploaded datasets are processed exclusively in volatile session memory. Data is never persisted to disk, databases, or cloud storage.
+2. **Session Isolation:** Terminating or refreshing the browser tab instantly purges all data structures from memory.
+3. **Local Deployment Ready:** Designed to run in air-gapped clinical environments without external network dependencies.
 
 ---
 
-## 🚀 Key Modules & Functional Overview
+## 🚀 Installation & Local Execution
 
-| Module | Core Capability | Governance & Technical Highlights |
-| :--- | :--- | :--- |
-| **1. Privacy-Preserving Record Linkage (PPRL)** | Probabilistic patient record de-duplication across registries | Salted SHA-256 HMAC cryptographic hashing, Jaro-Winkler string distance scoring, memory-only linkage. |
-| **2. Automated Data Quality Engine** | Automated physiological & logical data firewall | Real-time triage, systolic/diastolic anomaly detection, future date checks, automated Health Scorecard generation. |
-| **3. Reusable Schema Transformer** | Dynamic field register alignment | Drag-and-drop mapping to **DHIS2** and **WHO** standards with reusable `.json` rule exports. |
-| **4. Privacy Pre-Flight Scanner** | $k$-Anonymity re-identification risk audit | Computes $k$-scores across quasi-identifiers, offers 1-click age-binning generalization and ID suppression. |
-| **5. UK NHS Compliance Engine** | UK Health Research Governance converter | Modulus 11 NHS Number validation, UK GDPR outward postcode masking (`M14 4PX` $\rightarrow$ `M14`), OpenSAFELY/CPRD readiness. |
+### Option A: Non-Technical One-Click Launcher (Windows)
+1. Download or unzip the repository.
+2. Double-click **`Launch_Suite.bat`**.
+3. The script automatically initializes the virtual environment, installs requirements, and launches the browser interface.
 
----
-@software{Arain_Public_Health_Data_Suite_2026,
-  author       = {Arain, Engr. Tasaddaque Hussain},
-  title        = {Public Health Data Suite \& UK Compliance Engine},
-  month        = aug,
-  year         = {2026},
-  publisher    = {GitHub},
-  version      = {v1.0.0},
-  url          = {https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/},
-  howpublished = {\url{https://github.com/your-username/Public_Health_Data_Suite}}
-}
+### Option B: Terminal Command Line
+```bash
+git clone [https://github.com/tasaddaque/public_health_data_suite.git](https://github.com/tasaddaque/public_health_data_suite.git)
+cd public_health_data_suite
+
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
+streamlit run main.py
