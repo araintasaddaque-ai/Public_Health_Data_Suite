@@ -1,11 +1,15 @@
 cff-version: 1.2.0
-message: "If you use this software in your research or public health work, please cite it as below."
+title: "Public Health Data Suite & Governance Workbench: Zero-Knowledge Privacy-Preserving Health Intelligence Platform"
+message: "If you use this software in your research, please cite it using the metadata below."
+type: software
 authors:
   - family-names: "Arain"
     given-names: "Tasaddaque Hussain"
-    title: "Engr."
-title: "Public Health Data Suite & UK Compliance Engine"
-version: 1.0.0
-date-released: 2026-08-16
-url: "https://publichealthdatasuite-hqgog7csa3stt8tcujxd8k.streamlit.app/"
-repository-code: "https://github.com/your-username/Public_Health_Data_Suite"
+    orcid: "https://orcid.org/0009-0002-6550-013X"
+    affiliation: "Mehran University of Engineering and Technology / WAMTSOL"
+repository-code: "https://github.com/araintasaddaque-ai/Public_Health_Data_Suite"
+url: "https://public-health-data-suite.streamlit.app"
+doi: "10.5281/zenodo.21968342"
+version: "v2.0.0"
+date-released: "2026-08-16"
+license: "MIT"

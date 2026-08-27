@@ -1,19 +1,19 @@
 # 🩺 Public Health Data Suite & Governance Workbench
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12345678.svg)](https://doi.org/10.5281/zenodo.12345678)
-[![Digital Public Good](https://img.shields.io/badge/DPG-Candidate%20(Under%20Review)-blue.svg)](https://digitalpublicgoods.net/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21968342.svg)](https://doi.org/10.5281/zenodo.21968342)
+[![Digital Public Good](https://img.shields.io/badge/DPG-Candidate%20(Under%20Review)--GID0094074-blue.svg)](https://digitalpublicgoods.net/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B.svg)](https://streamlit.io/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An open-source, zero-knowledge health data governance and anonymization engine engineered for public health agencies, academic researchers, IRBs, and international NGOs. The platform transforms raw, non-standard clinical data into de-identified, privacy-compliant, and interoperable digital health assets without storing data on server disks.
+An open-source, zero-knowledge health data governance and anonymization engine engineered for public health agencies, academic researchers, IRBs, and international NGOs. The platform transforms raw, non-standard clinical data into de-identified, privacy-compliant, and interoperable digital health assets without persisting data to disk or cloud storage.
 
 ---
 
 ## 🏛️ Lead Architect & Engineering Credit
 
-* **Lead System Architect & Chief Engineer:** Engr. Tasaddaque Hussain Arain
-* **Professional Credentials:** Registered Professional Engineer, 
+* **Lead System Architect:** Engr. Tasaddaque Hussain Arain [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--6550--013X-green.svg)](https://orcid.org/0009-0002-6550-013X)
+* **Professional Credentials:** Registered Professional Engineer (Pakistan Engineering Council - PEC Reg: `COMP/7479`)
 * **Professional Profile:** [LinkedIn Profile](https://www.linkedin.com/in/tassaduqarain/)
 
 > **Ethical Foundation:**
@@ -58,11 +58,11 @@ An open-source, zero-knowledge health data governance and anonymization engine e
 
 ### Option B: Terminal Command Line
 ```bash
-git clone [https://github.com/tasaddaque/public_health_data_suite.git](https://github.com/tasaddaque/public_health_data_suite.git)
-cd public_health_data_suite
+git clone [https://github.com/araintasaddaque-ai/Public_Health_Data_Suite.git](https://github.com/araintasaddaque-ai/Public_Health_Data_Suite.git)
+cd Public_Health_Data_Suite
 
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows PowerShell: venv\Scripts\activate
 
 pip install -r requirements.txt
 streamlit run main.py
