@@ -1,4 +1,4 @@
-\name: Public Health Data Suite CI
+name: Public Health Data Suite CI
 
 on:
   push:
@@ -32,4 +32,4 @@ jobs:
 
     - name: Run Pytest Suite with Coverage
       run: |
-        python -m pytest tests/ -v --cov=modules --cov-report=term-missing
+        python -m pytest tests/ -v --cov=modules --cov-fail-under=75 --cov-report=term-missing
